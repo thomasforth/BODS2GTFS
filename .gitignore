@@ -1,3 +1,4 @@
 BODSToGTFS/bin/*
 BODSToGTFS/obj/*
 .vs/BODSToGTFS/*
+.vs/*

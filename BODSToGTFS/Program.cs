@@ -2,12 +2,24 @@
 using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
 using GeoCoordinatePortable;
+using ProtoBuf;
 using SQLite;
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 using System.Xml.Serialization;
+using TransitRealtime;
+
+
+// We can convert the gtfs-realtime.proto file to a C# class using the tool at https://protogen.marcgravell.com/
+// This then lets us load and deserialize the GTFS-RT feedmessage as below.
+// This can, presumably, be analyzed in the same way as I have been analyzing Siri-VM files.
+FeedMessage GTFSRTFeedMessage;
+using (var file = File.OpenRead("../../../../gtfsrt.bin"))
+{
+    GTFSRTFeedMessage = Serializer.Deserialize<FeedMessage>(file);
+}
 
 
 // We load in bus timetables so that we can match buses that ran to the information stored in here.
@@ -1094,3 +1106,4 @@ public partial class SiriServiceDeliveryVehicleMonitoringDeliveryVehicleActivity
         }
     }
 }
+
